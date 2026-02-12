@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Carta para mi vv mimi ❤️</title>
+  <style>
+    body {
+  background:
+    linear-gradient(rgba(255,154,158,0.5), rgba(250,208,196,0.5)),
+    url('snoopy.png') no-repeat center center fixed;
+  background-size: cover;
+  margin: 0;
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
+}
+
+
+    .card {
+  width: 95%;
+  max-width: 800px;
+  height: 90vh;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  position: relative;
+  overflow: hidden;
+}
+
+    .page {
+      width: 100%;
+      height: 100%;
+      padding: 30px;
+      box-sizing: border-box;
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .page.active { display: flex; }
+
+    h1 { color: #e63946; font-size: 40px; }
+
+    .hearts { font-size: 30px; }
+
+    .image-box {
+      width: 200px;
+      height: 200px;
+      border: 2px dashed #e63946;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 20px;
+      color: #888;
+    }
+
+    .arrow {
+      position: absolute;
+      right: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 50px;
+      cursor: pointer;
+      color: #e63946;
+      user-select: none;
+    }
+
+    .arrow.left { left: 20px; right: auto; }
+
+    textarea {
+      width: 90%;
+      height: 200px;
+      font-size: 18px;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+    }
+
+    .photo {
+      width: 250px;
+      height: 250px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #e63946;
+    }
+
+    .final-button {
+      padding: 15px 30px;
+      font-size: 20px;
+      border: none;
+      border-radius: 20px;
+      background: #e63946;
+      color: white;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    /* Modal final */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: pink;
+      width: 80%;
+      max-width: 600px;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+    }
+
+    .modal-content img {
+      width: 300px;
+      border-radius: 20px;
+    }
+
+    .close {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 15px;
+      background: #e63946;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+
+    <!-- Página 1 -->
+    <div class="page active">
+      <div class="hearts">❤️ ❤️ ❤️ ❤️ ❤️</div>
+      <h1>¿Quieres ser mi San Valentín?</h1>
+      <p>Mi persona favorita en el mundo...</p>
+      <img src="mivv.jpg" class="photo" />
+    </div>
+
+    <!-- Página 2 -->
+    <div class="page">
+      <h1>Lo que siento por ti</h1>
+      <textarea placeholder="Escribe aquí tu mensaje de amor...">Desde el día en que te llegué a conocer, me hiciste feliz de una manera que no sabía que existía.
+Cada momento que pasábamos juntos lo disfrutaba muchísimo, no importaba si me buleabas por mi pelo de cocoliso, de alguna u otra forma siempre me hacías reír y sentir bien.
+
+Me hiciste conocer una parte muy linda de ti: escucharte desahogarte por tu chamba como profesora, acompañarte en las ferias a las que ibas, y compartir esos pequeños momentos que para mí significaron tanto.
+Eres una persona tan misteriosa que me encanta descubrirte poco a poco y seguir conociendo más de ti.
+
+Me gusta pasar tiempo contigo, me gusta cómo eres y cómo me haces sentir.
+Te quiero mucho, mimi ❤️
+      </textarea>
+    </div>
+
+    <!-- Página 3 -->
+    <div class="page">
+      <h1>Nuestro recuerdo</h1>
+      <p>Aqui los 2 todo negros xddd</p>
+      <img src="beso.jpg" class="photo" />
+    </div>
+
+    <!-- Página 4 -->
+    <div class="page">
+      <h1>Un último detalle ❤️</h1>
+      <p>Haz click para abrir la sorpresa final</p>
+      <button class="final-button" onclick="openFinal()">Abrir</button>
+    </div>
+
+    <div class="arrow left" onclick="prevPage()">⬅</div>
+    <div class="arrow" onclick="nextPage()">➡</div>
+
+  </div>
+
+  <!-- Modal final (misma página) -->
+  <div class="modal" id="finalModal">
+    <div class="modal-content">
+      <h1>Te quiero mucho Xiomara ❤️</h1>
+      <p>di que shi vv</p>
+      <img src="michi.jpeg">
+      <br><br>
+      <audio controls autoplay>
+        <source src="tequiero.mp3" type="audio/mpeg">
+      </audio>
+      <br>
+      <button class="close" onclick="closeFinal()">Cerrar</button>
+    </div>
+  </div>
+
+  <script>
+    let currentPage = 0;
+    const pages = document.querySelectorAll('.page');
+
+    function showPage(index) {
+      pages.forEach(p => p.classList.remove('active'));
+      pages[index].classList.add('active');
+    }
+
+    function nextPage() {
+      if (currentPage < pages.length - 1) {
+        currentPage++;
+        showPage(currentPage);
+      }
+    }
+
+    function prevPage() {
+      if (currentPage > 0) {
+        currentPage--;
+        showPage(currentPage);
+      }
+    }
+
+    function openFinal() {
+  const modal = document.getElementById('finalModal');
+  modal.style.display = 'flex';
+
+  const audio = modal.querySelector('audio');
+  audio.play();
+}
+
+    function closeFinal() {
+      document.getElementById('finalModal').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
