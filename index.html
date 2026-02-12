@@ -6,6 +6,7 @@
   <title>Carta para mi vv mimi ❤️</title>
   <style>
     body {
+      
   background:
     linear-gradient(rgba(255,154,158,0.5), rgba(250,208,196,0.5)),
     url('snoopy.png') no-repeat center center fixed;
@@ -138,16 +139,21 @@
   </style>
 </head>
 <body>
+  <audio id="bgMusic" loop>
+  <source src="yo.mp3" type="audio/mpeg">
+</audio>
 
   <div class="card">
 
     <!-- Página 1 -->
+     
     <div class="page active">
       <div class="hearts">❤️ ❤️ ❤️ ❤️ ❤️</div>
       <h1>¿Quieres ser mi San Valentín?</h1>
       <p>Mi persona favorita en el mundo...</p>
       <img src="mivv.jpg" class="photo" />
     </div>
+    
 
     <!-- Página 2 -->
     <div class="page">
@@ -177,8 +183,9 @@ Te quiero mucho, mimi ❤️
       <button class="final-button" onclick="openFinal()">Abrir</button>
     </div>
 
-    <div class="arrow left" onclick="prevPage()">⬅</div>
-    <div class="arrow" onclick="nextPage()">➡</div>
+<div class="arrow left" onclick="startMusic(); prevPage()">⬅</div>
+<div class="arrow" onclick="startMusic(); nextPage()">➡</div>
+
 
   </div>
 
@@ -207,11 +214,16 @@ Te quiero mucho, mimi ❤️
     }
 
     function nextPage() {
-      if (currentPage < pages.length - 1) {
-        currentPage++;
-        showPage(currentPage);
-      }
+  if (currentPage < pages.length - 1) {
+    currentPage++;
+    showPage(currentPage);
+
+    // Si llega a la página 4, detener música de fondo
+    if (currentPage === 3) {
+      document.getElementById('bgMusic').pause();
     }
+  }
+}
 
     function prevPage() {
       if (currentPage > 0) {
@@ -231,6 +243,13 @@ Te quiero mucho, mimi ❤️
     function closeFinal() {
       document.getElementById('finalModal').style.display = 'none';
     }
+    
+    function startMusic() {
+  const bg = document.getElementById('bgMusic');
+  bg.play();
+}
+
+
   </script>
 
 </body>
